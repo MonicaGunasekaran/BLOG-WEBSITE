@@ -6,6 +6,16 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const app = express();
 
+// === Injected for React API ===
+const cors = require('cors');
+app.use(cors());
+app.use(express.json());
+app.use(methodOverride('_method'));
+const apiArticles = require('./routes/api.articles');
+app.use('/api/articles', apiArticles);
+// === End Injected ===
+
+
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
